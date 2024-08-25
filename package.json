@@ -1,0 +1,17 @@
+{
+  "type": "module", 
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^10.1.8"
+  },
+  "name": "prof-readme-gen",
+  "version": "1.0.0",
+  "description": "A professional README.md file generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
