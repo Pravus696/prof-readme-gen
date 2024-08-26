@@ -73,37 +73,57 @@ inquirer
   .then((response) => {
     const readme = `# ${response.title}
 
-    ## Description
-        ${response.motivation}
-        ${response.why}
-        ${response.problem}
-        ${response.learn}
-        ${response.standout}
+  ## Description
 
-    ## Table of Contents
-    
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Credits](#credits)
-    - [License](#license)
+  ${response.motivation}
+  ${response.why}
+  ${response.problem}
+  ${response.learn}
+  ${response.standout}
 
-    ## Installation
-        ${response.installation}
-    ## Usage
-        ${response.usage}
-    ## Credits
-        ${response.credits}        
-    ## License
-        ${response.license}
-    ## Badges
-        ![Original Creator](${response.badges})
-    ## Features
-        ${response.features}
-    ## How to Contribute
-        ${response.contribution}
-    ## Tests;
-        ${response.test}`;
-    fs.writeFile("README.md", readme, (error, data) => {
+  ## Table of Contents
+
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Credits](#credits)
+  - [License](#license)
+  - [Badges](#badges)
+  - [Features](#features)
+  - [How to Contribute](#contribute)
+  - [Tests](#tests)
+
+  ## Installation
+
+  ${response.installation}
+
+  ## Usage
+
+  ${response.usage}
+
+  ## Credits
+
+  ${response.credits}        
+
+  ## License
+
+  ${response.license}
+
+  ## Badges
+
+  ![Original Creator](${response.badges})
+
+  ## Features
+
+  ${response.features}
+
+  ## How to Contribute
+
+  ${response.contribution}
+
+  ## Tests
+
+  ${response.test}`;
+    fs.writeFile("README.md", readme, "utf8", (error) => {
       if (error) {
         console.error(error);
       } else {
