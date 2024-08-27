@@ -1,6 +1,29 @@
 import fs from "fs";
 import inquirer from "inquirer";
 
+
+  function renderLicenseBadge(license) {
+    if (license === 'MIT License') {
+        return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)';
+    } else if (license === 'Apache License 2.0') {
+        return '[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
+    } else if (license === 'GNU General Public License v3.0') {
+        return '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)';
+    } else if (license === 'BSD 3-Clause License') {
+        return '[![License: BSD](https://img.shields.io/badge/License-BSD-green.svg)](https://opensource.org/licenses/BSD-3-Clause)';
+    } else {
+        return 'No License Selected';
+    }
+};
+
+function renderCreatorBadge(badge) {
+  if (badge.startsWith("https://") || badge.startsWith("http://")) {
+      return '[![Original Creator](${badge})]';
+} else {
+      return 'No Badge Added';
+  }
+};
+
 inquirer
   .prompt([
     {
@@ -46,13 +69,25 @@ inquirer
     },
     {
       type: "input",
+      name: "credits",
+      message: "List your collaborators, if any.",
+    },
+    {
+      type: "list",
       name: "license",
       message: "What license are you using? (input N/A if not applicable)",
+      choices: [
+        "MIT License",
+        "Apache License 2.0",
+        "GNU General Public License v3.0",
+        "BSD 3-Clause License",
+        "N/A",
+      ],
     },
     {
       type: "input",
-      name: "badges",
-      message: "What is your badge? (insert badge link)",
+      name: "badge",
+      message: "What is your badge? (insert shields.io link)",
     },
     {
       type: "input",
@@ -106,11 +141,11 @@ inquirer
 
   ## License
 
-  ${response.license}
+  ${renderLicenseBadge(response.license)}
 
   ## Badges
 
-  ![Original Creator](${response.badges})
+  ${renderCreatorBadge(response.badge)}
 
   ## Features
 
@@ -131,3 +166,5 @@ inquirer
       }
     });
   });
+
+
