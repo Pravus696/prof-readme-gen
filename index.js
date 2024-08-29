@@ -1,29 +1,32 @@
+// npm being used for this project: inquirer, fs
 import fs from "fs";
 import inquirer from "inquirer";
 
+// Function to render license badge
+function renderLicenseBadge(license) {
+  if (license === "MIT License") {
+    return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+  } else if (license === "Apache License 2.0") {
+    return "[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+  } else if (license === "GNU General Public License v3.0") {
+    return "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
+  } else if (license === "BSD 3-Clause License") {
+    return "[![License: BSD](https://img.shields.io/badge/License-BSD-green.svg)](https://opensource.org/licenses/BSD-3-Clause)";
+  } else {
+    return "No License Selected";
+  }
+}
 
-  function renderLicenseBadge(license) {
-    if (license === 'MIT License') {
-        return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)';
-    } else if (license === 'Apache License 2.0') {
-        return '[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
-    } else if (license === 'GNU General Public License v3.0') {
-        return '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)';
-    } else if (license === 'BSD 3-Clause License') {
-        return '[![License: BSD](https://img.shields.io/badge/License-BSD-green.svg)](https://opensource.org/licenses/BSD-3-Clause)';
-    } else {
-        return 'No License Selected';
-    }
-};
-
+// Function to render creator badge
 function renderCreatorBadge(badge) {
   if (badge.startsWith("https://") || badge.startsWith("http://")) {
-      return '[![Original Creator](${badge})]';
-} else {
-      return 'No Badge Added';
+    return "[![Original Creator](${badge})]";
+  } else {
+    return "No Badge Added";
   }
-};
+}
 
+// Inquirer prompts looking for: title, motivation, why, problem, learn, standout, installation, usage, credits, license, badge, features, contribution
 inquirer
   .prompt([
     {
@@ -99,22 +102,18 @@ inquirer
       name: "contribution",
       message: "How can others contribute to your project?",
     },
-    {
-      type: "input",
-      name: "test",
-      message: "What tests have you written for your application?",
-    },
   ])
   .then((response) => {
+    // Creation of text for README file using user input
     const readme = `# ${response.title}
 
   ## Description
 
-  ${response.motivation}
-  ${response.why}
-  ${response.problem}
-  ${response.learn}
-  ${response.standout}
+  ${response.motivation}\n
+  ${response.why}\n
+  ${response.problem}\n
+  ${response.learn}\n
+  ${response.standout}\n
 
   ## Table of Contents
 
@@ -125,7 +124,6 @@ inquirer
   - [Badges](#badges)
   - [Features](#features)
   - [How to Contribute](#contribute)
-  - [Tests](#tests)
 
   ## Installation
 
@@ -153,11 +151,8 @@ inquirer
 
   ## How to Contribute
 
-  ${response.contribution}
-
-  ## Tests
-
-  ${response.test}`;
+  ${response.contribution}`;
+    // Write README file
     fs.writeFile("README.md", readme, "utf8", (error) => {
       if (error) {
         console.error(error);
@@ -166,5 +161,3 @@ inquirer
       }
     });
   });
-
-
