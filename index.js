@@ -13,7 +13,7 @@ import inquirer from "inquirer";
     } else if (license === 'BSD 3-Clause License') {
         return '[![License: BSD](https://img.shields.io/badge/License-BSD-green.svg)](https://opensource.org/licenses/BSD-3-Clause)';
     } else {
-        return 'No License Selected';
+        return 'This project does not have a License.';
     }
 };
 
@@ -70,11 +70,7 @@ inquirer
       name: "usage",
       message: "Provide instructions and examples for use.",
     },
-    {
-      type: "input",
-      name: "credits",
-      message: "List your collaborators, if any.",
-    },
+
     {
       type: "list",
       name: "license",
@@ -102,11 +98,21 @@ inquirer
       name: "contribution",
       message: "How can others contribute to your project?",
     },
+    // {
+    //   type: "input",
+    //   name: "tests",
+    //   message: "What tests have you run on your project?",
+    // },
     {
       type: "input",
-      name: "tests",
-      message: "What tests have you run on your project?",
+      name: "github",
+      message: "What is the link to your GitHub profile?",
     },
+    {
+      type: "input",
+      name: "email",
+      message: "What is your email?",
+    }
   ])
 
   .then((response) => {
@@ -116,7 +122,7 @@ inquirer
     const readme = 
   `# ${response.title}
 
-  ## Description
+## Description
 
   ${response.motivation}\n
   ${response.why}\n
@@ -124,7 +130,7 @@ inquirer
   ${response.learn}\n
   ${response.standout}\n
 
-  ## Table of Contents
+## Table of Contents
 
   - [Installation](#installation)
   - [Usage](#usage)
@@ -134,37 +140,37 @@ inquirer
   - [Features](#features)
   - [How to Contribute](#contribute)
 
-  ## Installation
+## Installation
 
-  ${response.installation}
+${response.installation}
 
-  ## Usage
+## Usage
 
-  ${response.usage}
+  ${response.usage}      
 
-  ## Credits
-
-  ${response.credits}        
-
-  ## License
+## License
 
   ${renderLicenseBadge(response.license)}
 
-  ## Badges
+## Badges
 
   ${renderCreatorBadge(response.badge)}
 
-  ## Features
+## Features
 
   ${response.features}
 
-  ## How to Contribute
+## How to Contribute
 
   ${response.contribution}
+
+## Questions
+
+  If you have any questions, please contact me at ${response.email}. You can also find me on GitHub at [${response.github}].`;
   
-  ## Tests
+// ## Tests
   
-  ${response.tests}`;
+//   ${response.tests};
   
   // Write README file
     fs.writeFile("README.md", readme, "utf8", (error) => {
